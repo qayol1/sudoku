@@ -85,9 +85,9 @@ while var == 1 :
         if template[row][column] == " ":
             template[row][column]=number
             filled_cells += 1
+            show()
         else:
             print("You can't change that cell!")
-    show()
     if filled_cells == 53:
         if check(solution,template) == True:
             print("Your solution is correct!")
