@@ -26,7 +26,8 @@ var = 1
 filled_cells = 0
 steps = 0
 
-def find_repetition_column(row, column, number):
+def find_repetition_column(row, column, number): 
+    """finds if we have more than one from the same number in a column"""
     row_double = 0
     for i in range(9):
         if template[i][column][0] == number:
@@ -36,7 +37,8 @@ def find_repetition_column(row, column, number):
     else:
         return False
 
-def find_repetition_row(row, column, number):
+def find_repetition_row(row, column, number): 
+    """finds if we have more than one from the same number in a row"""
     column_double = 0
     for i in range(9):
         if template[row][i][0] == number:
@@ -46,7 +48,8 @@ def find_repetition_row(row, column, number):
     else:
         return False
 
-def find_repetition_grid(row, column, number):
+def find_repetition_grid(row, column, number): 
+    """finds if we have more than one from the same number in 3*3 grid"""
     grid_double = 0
     row_from = (row//3)*3
     row_to = row_from + 3
@@ -62,6 +65,7 @@ def find_repetition_grid(row, column, number):
         return False
 
 def show():
+    """Prints the sudoku table"""
     global steps
     os.system('cls' if os.name == 'nt' else 'clear')
     print("Number of steps: ",steps, "\n")
@@ -88,6 +92,7 @@ def show():
             print("\n-----------------------------------------------------------")
 
 def validation(line):
+    """Checks if the given argumens are in the correct syntax"""
     valid = 0
     if len(line) == 5:
         if line[0] not in "abcdefghiABCDEFGHI":
@@ -113,6 +118,7 @@ def validation(line):
         return(False)
 
 def check(solution,template):
+    """Checks the filled sudoku table"""
     result = True
     for i in range(9):
         for j in range(9):
@@ -121,6 +127,7 @@ def check(solution,template):
     return result
 
 def fill_cell(line):
+    """Insert the given number to the sudoku table or delete"""
     global steps
     global filled_cells
     string_lower = "abcdefghi"
@@ -136,12 +143,12 @@ def fill_cell(line):
     else:
         number = " "
         filled_cells = filled_cells-1
-    if len(template[row][column]) == 1:
+    if len(template[row][column]) == 1: #the initial numbers in the template are two char long and can't be change'
         if template[row][column] == " ":
             filled_cells += 1
         template[row][column]=number
         show()
-        if number !=" ": # check repetition in the row, column or in the 3*3 grid if we don't delete'
+        if number !=" ": # check repetition in the row, column or in the 3*3 grid if we don't delete
             if find_repetition_row(row, column, number) == True :
                 print("This number already exists in this row!")
             if find_repetition_column(row, column, number) == True:
